@@ -81,6 +81,13 @@
                                 </div>
                             </div>
                             <a href="contact.html" class="nav-item nav-link">Contact</a>
+                            <span class="nav-item nav-link">
+                                <form action="{{ route('logout') }}" method="post">
+                                    @csrf
+                                    <input type="submit" value="Logout" class="btn btn-success mb-3 rounded">
+                                </form>
+                            </span>
+
                         </div>
                         <div class="d-flex m-3 me-0">
                             <button

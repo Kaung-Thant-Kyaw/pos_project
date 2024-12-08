@@ -5,5 +5,5 @@ use App\Http\Controllers\Admins\AdminController;
 
 
 Route::group(['prefix' => 'admin'], function () {
-    Route::get('/homepage', [AdminController::class, 'home'])->name('home');
+    Route::get('/homepage', [AdminController::class, 'home'])->name('adminHome');
 });

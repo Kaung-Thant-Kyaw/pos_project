@@ -106,7 +106,6 @@
 
                     <!-- Topbar -->
                     <nav class="navbar navbar-expand navbar-light topbar static-top mb-4 bg-white shadow">
-
                         <!-- Topbar Navbar -->
                         <ul class="navbar-nav ml-auto">
 
@@ -130,20 +129,22 @@
                                         Settings
                                     </a>
                                     <a class="dropdown-item" href="#">
-                                        <i class="fa-solid fa-lock fa-sm fa-fw mr-2 text-gray-400"></i></i></i>
+                                        <i class="fas fa-lock fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Change Password
                                     </a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#" data-toggle="modal"
-                                        data-target="#logoutModal">
-                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Logout
-                                    </a>
+                                    <form action="{{ route('logout') }}" method="POST" class="dropdown-item"
+                                        data-toggle="modal" data-target="#logoutModal">
+                                        @csrf
+                                        <button type="submit" class="btn btn-link text-dark p-0"><i
+                                                class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            Logout
+                                        </button>
+                                    </form>
                                 </div>
                             </li>
 
                         </ul>
-
                     </nav>
                     <!-- End of Topbar -->
 
@@ -152,8 +153,8 @@
                 </div>
 
                 <!-- Bootstrap core JavaScript-->
-                <script src="{{ asset('admins/') }}vendor/jquery/jquery.min.js"></script>
-                <script src="{{ asset('admins/') }}vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+                <script src="{{ asset('admins/vendor/jquery/jquery.min.js') }}"></script>
+                <script src="{{ asset('admins/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
                 <!-- Core plugin JavaScript-->
                 <script src="{{ asset('admins/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
