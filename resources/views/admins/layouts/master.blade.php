@@ -49,7 +49,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('category#list') }}"><i
+                    <a class="nav-link" href="{{ route('categories.list') }}"><i
                             class="fa-solid fa-circle-plus"></i></i><span>Category
                         </span></a>
                 </li>
@@ -150,8 +150,8 @@
                     <!-- End of Topbar -->
 
                     <!-- Begin Page Content -->
-                    @yield('content')
                     @include('sweetalert::alert')
+                    @yield('content')
 
                 </div>
 
