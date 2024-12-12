@@ -9,7 +9,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>SB Admin 2 - Dashboard</title>
+        <title>POS Admin Dashboard</title>
 
         <!-- Custom fonts for this template-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -49,7 +49,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fa-solid fa-circle-plus"></i></i><span>Category
+                    <a class="nav-link" href="{{ route('category#list') }}"><i
+                            class="fa-solid fa-circle-plus"></i></i><span>Category
                         </span></a>
                 </li>
 
@@ -133,8 +134,8 @@
                                         Change Password
                                     </a>
                                     <div class="dropdown-divider"></div>
-                                    <form action="{{ route('logout') }}" method="POST" class="dropdown-item"
-                                        data-toggle="modal" data-target="#logoutModal">
+                                    <form action="{{ route('logout') }}" method="POST" class="dropdown-item">
+                                        {{-- data-toggle="modal" data-target="#logoutModal" --}}
                                         @csrf
                                         <button type="submit" class="btn btn-link text-dark p-0"><i
                                                 class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
