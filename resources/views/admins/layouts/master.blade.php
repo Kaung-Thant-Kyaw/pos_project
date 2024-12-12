@@ -151,6 +151,8 @@
 
                     <!-- Begin Page Content -->
                     @yield('content')
+                    @include('sweetalert::alert')
+
                 </div>
 
                 <!-- Bootstrap core JavaScript-->
