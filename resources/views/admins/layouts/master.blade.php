@@ -45,7 +45,8 @@
 
                 <!-- Nav Item - Dashboard -->
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-fw fa-table"></i><span>Dashboard </span></a>
+                    <a class="nav-link" href="{{ route('adminHome') }}"><i
+                            class="fas fa-fw fa-table"></i><span>Dashboard </span></a>
                 </li>
 
                 <li class="nav-item">
@@ -127,12 +128,12 @@
                                     <span
                                         class="d-none d-lg-inline small mr-2 text-gray-600">{{ auth()->user()->name }}</span>
                                     <img class="img-profile rounded-circle"
-                                        src="{{ asset('admins/img/undraw_profile.svg') }}">
+                                        src="{{ asset(Auth::user()->profile == null ? 'admins/img/undraw_profile.svg' : 'profiles/' . Auth::user()->profile) }}">
                                 </a>
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right animated--grow-in shadow"
                                     aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="{{ route('profile.show') }}">
+                                    <a class="dropdown-item" href="{{ route('adminProfile.show') }}">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
                                     </a>
@@ -183,6 +184,19 @@
                 <!-- Page level custom scripts -->
                 <script src="{{ asset('admins/js/demo/chart-area-demo.js') }}"></script>
                 <script src="{{ asset('admins/js/demo/chart-pie-demo.js') }}"></script>
+
+                {{-- Image Preview --}}
+                <script>
+                    function loadFile(event) {
+                        var reader = new FileReader();
+
+                        reader.onload = function() {
+                            var output = document.getElementById('output');
+                            output.src = reader.result;
+                        }
+                        reader.readAsDataURL(event.target.files[0]);
+                    }
+                </script>
 
     </body>
 

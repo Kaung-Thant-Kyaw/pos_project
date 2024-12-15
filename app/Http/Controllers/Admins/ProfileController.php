@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
 
+use function PHPUnit\Framework\fileExists;
+
 class ProfileController extends Controller
 {
 
@@ -50,5 +52,61 @@ class ProfileController extends Controller
     public function show()
     {
         return view('admins.profile.accountProfile');
+    }
+
+    // Profile Edit Page
+    public function edit()
+    {
+        return view('admins.profile.edit');
+    }
+
+    // Profile Update
+    public function update(Request $request)
+    {
+        $this->profileValidation($request);
+        $data = $this->profileRequestData($request);
+
+        if ($request->hasFile('image')) {
+
+            // Delete old image
+            if (Auth::user()->profile != null) {
+                $imagePath = public_path('/profiles/' . Auth::user()->profile);
+                if (fileExists($imagePath)) {
+                    unlink($imagePath);
+                }
+            }
+            $fileName = uniqid() . '_ktk_' . $request->file('image')->getClientOriginalName();
+            $request->file('image')->move(public_path() . '/profiles/', $fileName);
+            $data['profile'] = $fileName;
+        } else {
+            $data['profile'] = Auth::user()->profile;
+        }
+
+        User::where('id', Auth::user()->id)->update($data);
+        Alert::success('Profile Updated', 'Profile Updated Successfully');
+        return to_route('adminProfile.show');
+    }
+
+    // Profile Request data
+    private function profileRequestData(Request $request)
+    {
+        return [
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+        ];
+    }
+
+
+    // Check Profile Validation
+    private function profileValidation(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|unique:users,email,' . Auth::user()->id,
+            'phone' => 'required|min:8|max:15|unique:users,phone,' . Auth::user()->id,
+            'image' => 'mimes:jpeg,jpg,png,svg|file'
+        ]);
     }
 }

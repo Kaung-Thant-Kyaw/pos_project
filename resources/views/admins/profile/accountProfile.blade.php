@@ -21,7 +21,7 @@
                     <div class="row">
                         <div class="col-2 offset-1">
                             <img src="{{ asset(Auth::user()->profile == null ? 'admins/img/undraw_profile.svg' : 'profiles/' . Auth::user()->profile) }}"
-                                id="output" class="img-profile img-thumbnail">
+                                id="output" class="img-profile img-thumbnail w-100">
                         </div>
                         <div class="col offset-1">
                             <div class="row mt-3">
@@ -29,7 +29,7 @@
                                     Name:
                                 </div>
                                 <div class="col h-5">
-                                    {{ Auth::user()->name ?? Auth::user()->nickname }}
+                                    {{ Auth::user()->name != null ? Auth::user()->name : Auth::user()->nickname }}
                                 </div>
                             </div>
                             <div class="row mt-3">
@@ -69,7 +69,7 @@
                                 <i class="fa-solid fa-lock"></i>
                                 Change your password
                             </a>
-                            <a href="{{ route('profile.changePassword.page') }}"
+                            <a href="{{ route('adminProfile.edit') }}"
                                 class="btn btn-warning btn-sm rounded text-white shadow-sm">
                                 <i class="fa-solid fa-pen-to-square"></i>
                                 Edit Profile

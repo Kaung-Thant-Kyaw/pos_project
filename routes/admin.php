@@ -22,8 +22,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         Route::get('changePassword', [ProfileController::class, 'changePasswordPage'])->name('profile.changePassword.page');
         Route::post('changePassword', [ProfileController::class, 'changePassword'])->name('profile.changePassword');
 
-        Route::get('/', [ProfileController::class, 'show'])->name('profile.show');
-        Route::get('edit', [ProfileController::class, 'edit'])->name('profile.edit');
-        Route::post('update', [ProfileController::class, 'update'])->name('profile.update');
+        Route::get('/', [ProfileController::class, 'show'])->name('adminProfile.show');
+        Route::get('edit', [ProfileController::class, 'edit'])->name('adminProfile.edit');
+        Route::post('update', [ProfileController::class, 'update'])->name('adminProfile.update');
     });
 });
