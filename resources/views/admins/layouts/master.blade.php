@@ -84,17 +84,27 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fa-solid fa-gear"></i></i><span>Setting </span></a>
+                    <a class="nav-link" href="#"><i class="fa-solid fa-gear"></i><span>Setting </span></a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fa-solid fa-lock"></i></i></i><span>Change Password
-                        </span></a>
+                    <a class="nav-link" href="{{ route('profile.changePassword.page') }}">
+                        <i class="fa-solid fa-lock"></i>
+                        <span>Change Password</span>
+                    </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fa-solid fa-right-from-bracket"></i></i><span>Logout
-                        </span></a>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <span class="nav-link">
+                            <button type="submit" class="btn bg-dark text-white">
+                                <i class="fa-solid fa-right-from-bracket"></i></i>
+                                <span>Logout</span>
+                            </button>
+                        </span>
+                    </form>
+
                 </li>
             </ul>
             <!-- End of Sidebar -->
@@ -114,14 +124,15 @@
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="d-none d-lg-inline small mr-2 text-gray-600">Douglas McGee</span>
+                                    <span
+                                        class="d-none d-lg-inline small mr-2 text-gray-600">{{ auth()->user()->name }}</span>
                                     <img class="img-profile rounded-circle"
                                         src="{{ asset('admins/img/undraw_profile.svg') }}">
                                 </a>
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right animated--grow-in shadow"
                                     aria-labelledby="userDropdown">
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="{{ route('profile.show') }}">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
                                     </a>
@@ -129,19 +140,20 @@
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Settings
                                     </a>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href="{{ route('profile.changePassword.page') }}">
                                         <i class="fas fa-lock fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Change Password
                                     </a>
                                     <div class="dropdown-divider"></div>
-                                    <form action="{{ route('logout') }}" method="POST" class="dropdown-item">
-                                        {{-- data-toggle="modal" data-target="#logoutModal" --}}
-                                        @csrf
-                                        <button type="submit" class="btn btn-link text-dark p-0"><i
-                                                class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                            Logout
-                                        </button>
-                                    </form>
+                                    <span class="dropdown-item" data-toggle="modal" data-target="#logoutModal">
+                                        <form action="{{ route('logout') }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn btn-link text-dark p-0"><i
+                                                    class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                                Logout
+                                            </button>
+                                        </form>
+                                    </span>
                                 </div>
                             </li>
 
