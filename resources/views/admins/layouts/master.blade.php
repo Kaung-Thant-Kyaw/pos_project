@@ -69,10 +69,14 @@
                     <a class="nav-link" href="#"><i class="fa-solid fa-plus"></i></i><span>Add Item </span></a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fa-solid fa-credit-card"></i></i><span>Payment Method
-                        </span></a>
-                </li>
+                @if (auth()->user()->role == 'superadmin')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('payment.index') }}"><i
+                                class="fa-solid fa-credit-card"></i></i><span>Payment
+                                Method
+                            </span></a>
+                    </li>
+                @endif
 
                 <li class="nav-item">
                     <a class="nav-link" href="#"><i class="fa-solid fa-list"></i><span>Sale Information
@@ -83,10 +87,13 @@
                     <a class="nav-link" href="#"><i class="fa-solid fa-cart-shopping"></i><span>Order Board
                         </span></a>
                 </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fa-solid fa-gear"></i><span>Setting </span></a>
-                </li>
+                @if (auth()->user()->role == 'superadmin')
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fa-solid fa-gear"></i><span>
+                                Add new admin account
+                            </span></a>
+                    </li>
+                @endif
 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('profile.changePassword.page') }}">
@@ -137,10 +144,12 @@
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
                                     </a>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Settings
-                                    </a>
+                                    @if (auth()->user()->role == 'superadmin')
+                                        <a class="dropdown-item" href="{{ route('addAdmin.create') }}">
+                                            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            Add New Admin Account
+                                        </a>
+                                    @endif
                                     <a class="dropdown-item" href="{{ route('profile.changePassword.page') }}">
                                         <i class="fas fa-lock fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Change Password

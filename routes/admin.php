@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Admins\AdminController;
+use App\Http\Controllers\Admins\PaymentController;
 use App\Http\Controllers\Admins\ProfileController;
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
@@ -25,5 +26,17 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         Route::get('/', [ProfileController::class, 'show'])->name('adminProfile.show');
         Route::get('edit', [ProfileController::class, 'edit'])->name('adminProfile.edit');
         Route::post('update', [ProfileController::class, 'update'])->name('adminProfile.update');
+
+        Route::get('add/newAdmin', [ProfileController::class, 'create'])->name('addAdmin.create');
+        Route::post('add/newAdmin', [ProfileController::class, 'store'])->name('addAdmin.store');
+    });
+
+    // Payment
+    Route::group(['prefix' => 'payment'], function () {
+        Route::get('/', [PaymentController::class, 'index'])->name('payment.index');
+        Route::post('/store', [PaymentController::class, 'store'])->name('payment.store');
+        Route::get('/edit/{id}', [PaymentController::class, 'edit'])->name('payment.edit');
+        Route::post('/update/{id}', [PaymentController::class, 'update'])->name('payment.update');
+        Route::get('/delete/{id}', [PaymentController::class, 'destroy'])->name('payment.destroy');
     });
 });

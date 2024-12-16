@@ -109,4 +109,46 @@ class ProfileController extends Controller
             'image' => 'mimes:jpeg,jpg,png,svg|file'
         ]);
     }
+
+    /**
+     * Add New Admin Account
+     */
+
+    //  Add Admin Form Page
+    public function create()
+    {
+        return view('admins.adminAccount.create');
+    }
+
+    // Admin Account Creation
+    public function store(Request $request)
+    {
+        $this->addAdminAccValidation($request);
+        $data = $this->adminAccRequestData($request);
+        User::create($data);
+        Alert::success('Admin account create', 'Admin account created successfully!');
+        return to_route('adminProfile.show');
+    }
+
+    // Admin Account Request Data
+    private function adminAccRequestData(Request $request)
+    {
+        return [
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'admin',
+        ];
+    }
+
+    // Add-admin acc validation
+    private function addAdminAccValidation(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|min:3|max:20',
+            'email' => 'required|unique:users,email',
+            'password' => 'required|min:6|max:15',
+            'confirmPassword' => 'required|same:password|min:6|max:15',
+        ]);
+    }
 }
