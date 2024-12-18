@@ -56,17 +56,13 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fa-solid fa-sitemap"></i></i><span>Add Category
-                        </span></a>
+                    <a class="nav-link" href="{{ route('products.create') }}"><i
+                            class="fa-solid fa-plus"></i></i><span>Add Product </span></a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link" href="#"><i class="fa-solid fa-layer-group"></i><span>Product Details
                         </span></a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fa-solid fa-plus"></i></i><span>Add Item </span></a>
                 </li>
 
                 @if (auth()->user()->role == 'superadmin')
@@ -89,8 +85,18 @@
                 </li>
                 @if (auth()->user()->role == 'superadmin')
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fa-solid fa-gear"></i><span>
+                        <a class="nav-link" href="{{ route('addAdmin.create') }}"><i class="fa-solid fa-gear"></i><span>
                                 Add new admin account
+                            </span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.list') }}"><i class="fa-solid fa-users"></i><span>
+                                Admin List
+                            </span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('user.list') }}"><i class="fa-solid fa-users"></i><span>
+                                User List
                             </span></a>
                     </li>
                 @endif
@@ -148,6 +154,14 @@
                                         <a class="dropdown-item" href="{{ route('addAdmin.create') }}">
                                             <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                             Add New Admin Account
+                                        </a>
+                                        <a class="dropdown-item" href="{{ route('admin.list') }}">
+                                            <i class="fas fa-users fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            Admin List
+                                        </a>
+                                        <a class="dropdown-item" href="{{ route('user.list') }}">
+                                            <i class="fas fa-users fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            User List
                                         </a>
                                     @endif
                                     <a class="dropdown-item" href="{{ route('profile.changePassword.page') }}">

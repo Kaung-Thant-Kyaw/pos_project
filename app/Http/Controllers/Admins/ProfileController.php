@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use PDO;
 use RealRashid\SweetAlert\Facades\Alert;
 
 use function PHPUnit\Framework\fileExists;
@@ -130,6 +131,27 @@ class ProfileController extends Controller
         return to_route('adminProfile.show');
     }
 
+    // Admin List Page
+    public function adminList()
+    {
+        $searchKey = request('searchKey');
+        $admins = User::when($searchKey, function ($query) use ($searchKey) {
+            $query->whereAny(['name', 'email', 'phone', 'address', 'provider'], 'like', "%" . $searchKey . "%");
+        })
+            ->whereIn('role', ['admin', 'superadmin'])
+            ->select('id', 'name', 'email', 'phone', 'address', 'provider', 'role', 'created_at')
+            ->paginate(10);
+        return view('admins.adminAccount.list', compact('admins'));
+    }
+
+    // Delete Admin Account
+    public function destroy($id)
+    {
+        User::find($id)->delete();
+        Alert::success('Admin account delete', 'Admin account deleted successfully!');
+        return back();
+    }
+
     // Admin Account Request Data
     private function adminAccRequestData(Request $request)
     {
@@ -150,5 +172,30 @@ class ProfileController extends Controller
             'password' => 'required|min:6|max:15',
             'confirmPassword' => 'required|same:password|min:6|max:15',
         ]);
+    }
+
+
+    /**
+     * Show User list & delete user
+     */
+    // User List
+    public function userList()
+    {
+        $searchKey = request('searchKey');
+        $users = User::when($searchKey, function ($query) use ($searchKey) {
+            $query->whereAny(['name', 'email', 'phone', 'address', 'provider'], 'like', "%" . $searchKey . "%");
+        })
+            ->where('role', 'user')
+            ->select('id', 'name', 'email', 'phone', 'address', 'provider', 'role', 'created_at')
+            ->paginate(10);
+        return view('admins.userAccount.list', compact('users'));
+    }
+
+    // Delete User Account
+    public function destroyUser($id)
+    {
+        User::find($id)->delete();
+        Alert::success('User account delete', 'User account deleted successfully!');
+        return back();
     }
 }
