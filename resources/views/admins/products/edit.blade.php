@@ -4,11 +4,14 @@
     <div class="container">
         <div class="row p-3">
             <div class="card col-6 offset-3 rounded p-3 shadow-sm">
-                <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    <input type="hidden" name="oldPhoto" value="{{ $product->image }}">
+                    <input type="hidden" name="productId" value="{{ $product->id }}">
                     <div class="card-body">
                         <div class="mb-3">
-                            <img src="{{ asset('master/empty.jpg') }}" class="img-thumbnail w-50 mb-2" id="output">
+                            <img src="{{ asset('products/' . $product->image) }}" class="img-thumbnail w-50 mb-2"
+                                id="output">
                             <input type="file" name="image"
                                 class="form-control @error('image') is-invalid @enderror mt-1" onchange="loadFile(event)">
                             @error('image')
@@ -21,7 +24,7 @@
                                     <label for="name" class="form-label">Name</label>
                                     <input type="text" name="name"
                                         class="form-control @error('name') is-invalid @enderror" id="name"
-                                        value="{{ old('name') }}" placeholder="Enter Name...">
+                                        value="{{ old('name', $product->name) }}" placeholder="Enter Name...">
                                     @error('name')
                                         <small class="invalid-feedback">{{ $message }}</small>
                                     @enderror
@@ -35,7 +38,7 @@
                                         <option value="">Choose Category</option>
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}"
-                                                {{ old('categoryId') == $category->id ? 'selected' : '' }}>
+                                                {{ old('categoryId', $product->category_id) == $category->id ? 'selected' : '' }}>
                                                 {{ $category->name }}</option>
                                         @endforeach
                                     </select>
@@ -51,7 +54,7 @@
                                     <label for="price" class="form-label">Price</label>
                                     <input type="text" name="price"
                                         class="form-control @error('price') is-invalid @enderror" id="price"
-                                        value="{{ old('price') }}" placeholder="Enter Price...">
+                                        value="{{ old('price', $product->price) }}" placeholder="Enter Price...">
                                     @error('price')
                                         <small class="invalid-feedback">{{ $message }}</small>
                                     @enderror
@@ -62,7 +65,7 @@
                                     <label for="stock" class="form-label">Stock</label>
                                     <input type="text" name="stock"
                                         class="form-control @error('stock') is-invalid @enderror" id="stock"
-                                        value="{{ old('stock') }}" placeholder="Enter stock">
+                                        value="{{ old('stock', $product->stock) }}" placeholder="Enter stock">
                                     @error('stock')
                                         <small class="invalid-feedback">{{ $message }}</small>
                                     @enderror
@@ -72,14 +75,14 @@
                         <div class="mb-3">
                             <label for="description" class="form-label">Description</label>
                             <textarea cols="30" rows="10" name="description"
-                                class="form-control @error('description') is-invalid @enderror" id="description" placeholder="Enter description">{{ old('description') }}</textarea>
+                                class="form-control @error('description') is-invalid @enderror" id="description" placeholder="Enter description">{{ old('description', $product->description) }}</textarea>
                             @error('description')
                                 <small class="invalid-feedback">{{ $message }}</small>
                             @enderror
                         </div>
 
                         <div class="mb-3">
-                            <button type="submit" class="btn btn-primary w-100 rounded shadow-sm">Create Product</button>
+                            <button type="submit" class="btn btn-primary w-100 rounded shadow-sm">Update Product</button>
                         </div>
                     </div>
                 </form>
