@@ -16,7 +16,9 @@
             rel="stylesheet">
 
         <!-- Icon Font Stylesheet -->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+            integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
         <!-- Libraries Stylesheet -->
@@ -41,22 +43,6 @@
 
         <!-- Navbar start -->
         <div class="container-fluid fixed-top">
-            <div class="topbar bg-primary d-none d-lg-block container">
-                <div class="d-flex justify-content-between">
-                    <div class="top-info ps-2">
-                        <small class="me-3"><i class="fas fa-map-marker-alt text-secondary me-2"></i> <a
-                                href="#" class="text-white">123 Street, New York</a></small>
-                        <small class="me-3"><i class="fas fa-envelope text-secondary me-2"></i><a href="#"
-                                class="text-white">Email@Example.com</a></small>
-                    </div>
-                    <div class="top-link pe-2">
-                        <a href="#" class="text-white"><small class="mx-2 text-white">Privacy Policy</small>/</a>
-                        <a href="#" class="text-white"><small class="mx-2 text-white">Terms of Use</small>/</a>
-                        <a href="#" class="text-white"><small class="ms-2 text-white">Sales and
-                                Refunds</small></a>
-                    </div>
-                </div>
-            </div>
             <div class="container px-0">
                 <nav class="navbar navbar-light navbar-expand-xl bg-white">
                     <a href="index.html" class="navbar-brand">
@@ -68,41 +54,45 @@
                     </button>
                     <div class="navbar-collapse collapse bg-white" id="navbarCollapse">
                         <div class="navbar-nav mx-auto">
-                            <a href="index.html" class="nav-item nav-link active">Home</a>
-                            <a href="shop.html" class="nav-item nav-link">Shop</a>
-                            <a href="shop-detail.html" class="nav-item nav-link">Shop Detail</a>
-                            <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                                <div class="dropdown-menu bg-secondary rounded-0 m-0">
-                                    <a href="cart.html" class="dropdown-item">Cart</a>
-                                    <a href="chackout.html" class="dropdown-item">Chackout</a>
-                                    <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                                    <a href="404.html" class="dropdown-item">404 Page</a>
-                                </div>
-                            </div>
-                            <a href="contact.html" class="nav-item nav-link">Contact</a>
-                            <span class="nav-item nav-link">
-                                <form action="{{ route('logout') }}" method="post">
-                                    @csrf
-                                    <input type="submit" value="Logout" class="btn btn-success mb-3 rounded">
-                                </form>
-                            </span>
-
+                            <a href="{{ route('userHome') }}"
+                                class="nav-item nav-link {{ request()->routeIs('userHome') ? 'active' : '' }}">Home</a>
+                            <a href="#"
+                                class="nav-item nav-link {{ request()->routeIs('shop') ? 'active' : '' }}">Shop</a>
+                            <a href="#"
+                                class="nav-item nav-link {{ request()->routeIs('cart') ? 'active' : '' }}">Cart</a>
+                            <a href="#"
+                                class="nav-item nav-link {{ request()->routeIs('contact') ? 'active' : '' }}">Contact</a>
                         </div>
                         <div class="d-flex m-3 me-0">
-                            <button
-                                class="btn-search btn border-secondary btn-md-square rounded-circle me-4 border bg-white"
-                                data-bs-toggle="modal" data-bs-target="#searchModal"><i
-                                    class="fas fa-search text-primary"></i></button>
+
                             <a href="#" class="position-relative my-auto me-4">
                                 <i class="fa fa-shopping-bag fa-2x"></i>
                                 <span
                                     class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
                                     style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
                             </a>
-                            <a href="#" class="my-auto">
-                                <i class="fas fa-user fa-2x"></i>
-                            </a>
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle my-auto mt-2"
+                                    data-bs-toggle="dropdown"">
+                                    <img src="{{ asset(Auth::user()->profile == null ? 'admins/img/undraw_profile.svg' : 'profiles/' . Auth::user()->profile) }}"
+                                        class="img-profile rounded-circle" style="width: 30px;">
+                                    <span>
+                                        {{ Auth::user()->name != null ? Auth::user()->name : Auth::user()->nickname }}
+                                    </span>
+                                </a>
+                                <div class="dropdown-menu bg-secondary rounded-0 m-0">
+                                    <a href="#" class="dropdown-item my-2">Edit Profile</a>
+                                    <a href="#" class="dropdown-item my-2">Change Password</a>
+                                    <span class="dropdown-item my-2">
+                                        <form action="{{ route('logout') }}" method="post">
+                                            @csrf
+                                            <input type="submit" value="Logout"
+                                                class="btn btn-outline-success w-100 btn-sm rounded">
+                                        </form>
+                                    </span>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </nav>
@@ -134,8 +124,8 @@
                         </div>
                         <div class="col-lg-3">
                             <div class="d-flex justify-content-end pt-3">
-                                <a class="btn btn-outline-secondary btn-md-square rounded-circle me-2"
-                                    href=""><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-outline-secondary btn-md-square rounded-circle me-2" href=""><i
+                                        class="fab fa-twitter"></i></a>
                                 <a class="btn btn-outline-secondary btn-md-square rounded-circle me-2"
                                     href=""><i class="fab fa-facebook-f"></i></a>
                                 <a class="btn btn-outline-secondary btn-md-square rounded-circle me-2"
