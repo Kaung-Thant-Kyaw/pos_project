@@ -11,7 +11,18 @@ require __DIR__ . '/admin.php';
 require __DIR__ . '/user.php';
 require __DIR__ . '/auth.php';
 
-Route::redirect('/', 'login');
+
+
+// Route::get('/', function () {
+//     return 'Welcome to the home page';
+// });
+
+// Route::get('/login', function () {
+//     return 'Login page here';
+// });
+Route::get('/', function () {
+    return redirect('login');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');

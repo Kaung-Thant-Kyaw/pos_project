@@ -111,15 +111,15 @@
                     <div class="col-lg-8 text-end">
                         <ul class="nav nav-pills d-inline-flex mb-5 text-center">
                             <li class="nav-item">
-                                <a class="d-flex bg-light rounded-pill m-2 py-2 {{ !request('categoryId') ? 'active' : '' }}"
+                                <a class="d-flex bg-light rounded-pill {{ !request('categoryId') ? 'active' : '' }} m-2 py-2"
                                     href="{{ url('user/home') }}">
                                     <span class="text-dark" style="width: 130px;">All Products</span>
                                 </a>
                             </li>
                             @foreach ($categories as $category)
                                 <li class="nav-item">
-                                    <a class="d-flex bg-light rounded-pill m-2 py-2 {{ request('categoryId') == $category->id ? 'active' : ''}}"
-                                    href="{{ url('user/home/?categoryId='. $category->id) }}">
+                                    <a class="d-flex bg-light rounded-pill {{ request('categoryId') == $category->id ? 'active' : '' }} m-2 py-2"
+                                        href="{{ url('user/home/?categoryId=' . $category->id) }}">
                                         <span class="text-dark" style="width: 130px;">
                                             {{ $category->name }}
                                         </span>
@@ -133,7 +133,8 @@
                     <div id="tab-1" class="tab-pane fade show active p-0">
                         <div class="row g-4">
                             <div class="col-12 col-md-3">
-                                <form action="{{ route('userHome') }}" method="GET" class="d-flex flex-column align-items-center mb-4">
+                                <form action="{{ route('userHome') }}" method="GET"
+                                    class="d-flex flex-column align-items-center mb-4">
                                     @csrf
                                     <div class="input-group w-100">
                                         <input type="text" name="searchKey" class="form-control" placeholder="Search"
@@ -147,41 +148,51 @@
                                     </div>
                                 </form>
                                 <div class="row mb-3">
-                                    <h5 class="text-center w-100 mb-3">Filter By Price</h5>
+                                    <h5 class="w-100 mb-3 text-center">Filter By Price</h5>
                                     <div class="col-6 col-md-12 mb-2">
                                         <form action="{{ route('userHome') }}" method="GET">
                                             @csrf
-                                            <input type="text" name="minPrice" value="{{ request('minPrice') }}" placeholder="Minimum Price ..." class="form-control my-2">
-                                            <input type="text" name="maxPrice" value="{{ request('maxPrice') }}" placeholder="Maximum Price ..." class="form-control my-2">
-                                            <input type="submit" value="Search" class="btn btn-outline-success btn-sm w-100">
+                                            <input type="text" name="minPrice" value="{{ request('minPrice') }}"
+                                                placeholder="Minimum Price ..." class="form-control my-2">
+                                            <input type="text" name="maxPrice" value="{{ request('maxPrice') }}"
+                                                placeholder="Maximum Price ..." class="form-control my-2">
+                                            <input type="submit" value="Search"
+                                                class="btn btn-outline-success btn-sm w-100">
                                         </form>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-6 col-md-12 mb-2">
-                                        <h5 class="text-center w-100 mb-3">Sort By</h5>
+                                        <h5 class="w-100 mb-3 text-center">Sort By</h5>
                                         <form action="{{ route('userHome') }}">
                                             <select name="sortingType" class="form-control w-100 mb-2">
-                                                <option value="name,asc" {{ request('sortingType') == 'name,asc' ? 'selected' : '' }}>
+                                                <option value="name,asc"
+                                                    {{ request('sortingType') == 'name,asc' ? 'selected' : '' }}>
                                                     Alphabet A - Z
                                                 </option>
-                                                <option value="name,desc" {{ request('sortingType') == 'name,desc' ? 'selected' : '' }}>
+                                                <option value="name,desc"
+                                                    {{ request('sortingType') == 'name,desc' ? 'selected' : '' }}>
                                                     Alphabet Z - A
                                                 </option>
-                                                <option value="price,asc" {{ request('sortingType') == 'price,asc' ? 'selected' : '' }}>
+                                                <option value="price,asc"
+                                                    {{ request('sortingType') == 'price,asc' ? 'selected' : '' }}>
                                                     Price Highest to Lowest
                                                 </option>
-                                                <option value="price,desc" {{ request('sortingType') == 'price,desc' ? 'selected' : '' }}>
+                                                <option value="price,desc"
+                                                    {{ request('sortingType') == 'price,desc' ? 'selected' : '' }}>
                                                     Price Lowest to Highest
                                                 </option>
-                                                <option value="created_at,asc" {{ request('sortingType') == 'created_at,asc' ? 'selected' : '' }}>
+                                                <option value="created_at,asc"
+                                                    {{ request('sortingType') == 'created_at,asc' ? 'selected' : '' }}>
                                                     Date Asc
                                                 </option>
-                                                <option value="created_at,desc" {{ request('sortingType') == 'created_at,desc' ? 'selected' : '' }}>
+                                                <option value="created_at,desc"
+                                                    {{ request('sortingType') == 'created_at,desc' ? 'selected' : '' }}>
                                                     Date Desc
                                                 </option>
                                             </select>
-                                            <input type="submit" value="Sort" class="btn btn-outline-success btn-sm w-100">
+                                            <input type="submit" value="Sort"
+                                                class="btn btn-outline-success btn-sm w-100">
                                         </form>
                                     </div>
                                 </div>
@@ -192,17 +203,24 @@
                                         <div class="col-12 col-md-4">
                                             <div class="position-relative fruite-item rounded shadow-sm">
                                                 <div class="fruite-img">
-                                                    <img src="{{ asset('products/' . $product->image) }}" class="img-fluid w-100 rounded-top"
-                                                         alt="" style="height: 250px; object-fit: cover;">
+                                                    <a href="{{ route('user.product.show', $product->id) }}">
+                                                        <img src="{{ asset('products/' . $product->image) }}"
+                                                            class="img-fluid w-100 rounded-top" alt=""
+                                                            style="height: 250px; object-fit: cover;">
+                                                    </a>
                                                 </div>
                                                 <div class="bg-secondary position-absolute rounded px-3 py-1 text-white"
-                                                     style="top: 10px; left: 10px;">{{ $product->category_name }}</div>
+                                                    style="top: 10px; left: 10px;">{{ $product->category_name }}</div>
                                                 <div class="border-secondary border-top-0 rounded-bottom border p-4">
                                                     <h4 class="fw-semibold mb-3">{{ $product->name }}</h4>
-                                                    <p class="text-muted mb-3">{{ Str::words($product->description, 10, '...') }}</p>
-                                                    <div class="d-flex justify-content-between align-items-center flex-column flex-md-row">
-                                                        <p class="text-dark fs-5 fw-bold mb-3 mb-md-0">{{ $product->price }} mmk</p>
-                                                        <a href="#" class="btn btn-outline-primary rounded-pill px-3 py-2">
+                                                    <p class="text-muted mb-3">
+                                                        {{ Str::words($product->description, 10, '...') }}</p>
+                                                    <div
+                                                        class="d-flex justify-content-between align-items-center flex-column flex-md-row">
+                                                        <p class="text-dark fs-5 fw-bold mb-md-0 mb-3">
+                                                            {{ $product->price }} mmk</p>
+                                                        <a href="#"
+                                                            class="btn btn-outline-primary rounded-pill px-3 py-2">
                                                             <i class="fa fa-shopping-bag text-primary me-2"></i> Add to cart
                                                         </a>
                                                     </div>

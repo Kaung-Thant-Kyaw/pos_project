@@ -65,11 +65,11 @@
                         </div>
                         <div class="d-flex m-3 me-0">
 
-                            <a href="#" class="position-relative my-auto me-4">
+                            <a href="{{ route('user.product.cart') }}" class="position-relative my-auto me-4">
                                 <i class="fa fa-shopping-bag fa-2x"></i>
-                                <span
+                                {{-- <span
                                     class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
-                                    style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
+                                    style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span> --}}
                             </a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle my-auto mt-2"
@@ -210,6 +210,9 @@
 
         <!-- JavaScript Libraries -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+            integrity="sha512-JobWAqYk5CSjWuVV3mxgS+MmccJqkrBaDhk8SKS1BW+71dJ9gzascwzW85UwGhxiSyR7Pxhu50k+Nl3+o5I49A=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="{{ asset('users/lib/easing/easing.min.js') }}"></script>
         <script src="{{ asset('users/lib/waypoints/waypoints.min.js') }}"></script>
@@ -218,6 +221,7 @@
 
         <!-- Template Javascript -->
         <script src="{{ asset('users/js/main.js') }}"></script>
+        @yield('js-section')
     </body>
 
 </html>

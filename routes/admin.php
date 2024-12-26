@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admins\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Admins\AdminController;
 use App\Http\Controllers\Admins\PaymentController;
 use App\Http\Controllers\Admins\ProfileController;
-use App\Http\Controllers\ProductController;
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/homepage', [AdminController::class, 'home'])->name('adminHome');
