@@ -17,6 +17,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <input type="hidden" id="userId" value="{{ Auth::user()->id }}">
                         @foreach ($cart as $item)
                             <tr>
                                 <th scope="row">
@@ -52,7 +53,9 @@
                                     <p class="total mb-0 mt-4">{{ $item->price * $item->qty }} mmk</p>
                                 </td>
                                 <td>
-                                    <button class="btn btn-md rounded-circle bg-light mt-4 border">
+                                    <input type="hidden" class="cartId" value="{{ $item->cart_id }}">
+                                    <input type="hidden" class="productId" value="{{ $item->product_id }}">
+                                    <button class="btn btn-md btn-remove rounded-circle bg-light mt-4 border">
                                         <i class="fa fa-times text-danger"></i>
                                     </button>
                                 </td>
@@ -83,7 +86,8 @@
                             <p class="mb-0 pe-4" id="finalTotal">{{ $total + 5000 }} mmk</p>
                         </div>
                         <button class="btn border-secondary rounded-pill text-primary text-uppercase mb-4 ms-4 px-4 py-3"
-                            type="button">Proceed Checkout</button>
+                            id="btn-checkout" type="button" {{ count($cart) == 0 ? 'disabled' : '' }}>Proceed
+                            Checkout</button>
                     </div>
                 </div>
             </div>
@@ -227,6 +231,66 @@
                 $('#subtotal').html(`${$total} mmk`);
                 $('#finalTotal').html(`${$total+5000} mmk`);
             }
+
+            // When click remove button
+            $(".btn-remove").click(function() {
+                $parentNode = $(this).parents("tr");
+                $cartId = $parentNode.find('.cartId').val();
+                $data = {
+                    cartId: $cartId
+                }
+
+                // send an Ajax request to remove the cart item
+                $.ajax({
+                    type: 'get',
+                    url: "/user/product/cart/delete",
+                    data: $data,
+                    dataType: 'json',
+                    success: function(response) {
+                        response.status == 'success' ? location.reload() : '';
+                    }
+                })
+            })
+
+            // Proceed checkout with Ajax
+            $("#btn-checkout").click(function() {
+                let orderList = [];
+                let orderCode = "CL-POS-" + Math.floor(Math.random() * 1000000000);
+                let userId = $("#userId").val();
+                let totalAmount = parseInt($("#finalTotal").text().replace("mmk", ""), 10);
+
+
+
+                $("#productTable tbody tr").each(function() {
+                    let productId = $(this).find(".productId").val();
+                    let qty = $(this).find(".qty").val();
+
+                    if (productId && qty) {
+                        orderList.push({
+                            user_id: userId,
+                            product_id: productId,
+                            qty: qty,
+                            total_amt: totalAmount,
+                            order_code: orderCode,
+                        });
+                    }
+                });
+
+                console.log(orderList);
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/user/cart/temp',
+                    data: Object.assign({}, orderList),
+                    dataType: 'json',
+                    success: function(res) {
+                        if (res.status == 'success') {
+                            location.href = '/user/payment';
+                        }
+                    }
+
+                });
+            });
 
         });
     </script>

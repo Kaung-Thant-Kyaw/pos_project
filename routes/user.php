@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admins\PaymentController;
 use App\Http\Controllers\Users\ProductController;
 use App\Http\Controllers\Users\UserController;
 use Illuminate\Support\Facades\Route;
@@ -13,5 +14,15 @@ Route::group(['prefix' => 'user', 'middleware' => 'user'], function () {
 
         Route::post('addToCart', [ProductController::class, 'addToCart'])->name('user.product.addToCart');
         Route::get('cart', [ProductController::class, 'cart'])->name('user.product.cart');
+
+        // api
+        Route::get('cart/delete', [ProductController::class, 'cartDelete'])->name('user.product.cartDelete');
+        Route::get('list', [ProductController::class, 'cartList'])->name('user.product.list');
     });
+
+    // Payment Info
+    Route::get('cart/temp', [ProductController::class, 'cartTemp'])->name('user.cartTemp');
+    Route::get('payment', [ProductController::class, 'payment'])->name('user.payment');
+    Route::post('order', [ProductController::class, 'order'])->name('user.order');
+    Route::get('order/list', [ProductController::class, 'orderList'])->name('user.order.list');
 });

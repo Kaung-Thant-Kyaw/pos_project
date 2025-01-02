@@ -71,6 +71,9 @@
                                     class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
                                     style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span> --}}
                             </a>
+                            <a href="{{ route('user.order.list') }}" class="position-relative my-auto me-4">
+                                <i class="fa-solid fa-list"></i>
+                            </a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle my-auto mt-2"
                                     data-bs-toggle="dropdown"">
@@ -124,8 +127,8 @@
                         </div>
                         <div class="col-lg-3">
                             <div class="d-flex justify-content-end pt-3">
-                                <a class="btn btn-outline-secondary btn-md-square rounded-circle me-2" href=""><i
-                                        class="fab fa-twitter"></i></a>
+                                <a class="btn btn-outline-secondary btn-md-square rounded-circle me-2"
+                                    href=""><i class="fab fa-twitter"></i></a>
                                 <a class="btn btn-outline-secondary btn-md-square rounded-circle me-2"
                                     href=""><i class="fab fa-facebook-f"></i></a>
                                 <a class="btn btn-outline-secondary btn-md-square rounded-circle me-2"
