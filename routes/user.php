@@ -8,6 +8,18 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'user', 'middleware' => 'user'], function () {
     Route::get('home', [UserController::class, 'home'])->name('userHome');
 
+    Route::group(['prefix' => 'profile'], function () {
+        // Edit Profile
+        Route::get('/', [UserController::class, 'showProfile'])->name('user.profile');
+        Route::get('edit', [UserController::class, 'editProfile'])->name('user.profile.edit');
+        Route::post('update/{id}', [UserController::class, 'updateProfile'])->name('user.profile.update');
+
+        // change password
+        Route::get('changePassword', [UserController::class, 'changePasswordPage'])->name('user.profile.changePasswordPage');
+        Route::post('changePassword', [UserController::class, 'changePassword'])->name('user.profile.changePassword');
+    });
+
+
     // Product
     Route::prefix('product')->group(function () {
         Route::get('detail/{id}', [ProductController::class, 'show'])->name('user.product.show');

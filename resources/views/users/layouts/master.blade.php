@@ -84,8 +84,13 @@
                                     </span>
                                 </a>
                                 <div class="dropdown-menu bg-secondary rounded-0 m-0">
-                                    <a href="#" class="dropdown-item my-2">Edit Profile</a>
-                                    <a href="#" class="dropdown-item my-2">Change Password</a>
+
+                                    <a href="{{ route('user.profile', Auth::user()->id) }}"
+                                        class="dropdown-item my-2">Your Profile</a>
+                                    <a href="{{ route('user.profile.edit', Auth::user()->id) }}"
+                                        class="dropdown-item my-2">Edit Profile</a>
+                                    <a href="{{ route('user.profile.changePasswordPage', Auth::user()->id) }}"
+                                        class="dropdown-item my-2">Change Password</a>
                                     <span class="dropdown-item my-2">
                                         <form action="{{ route('logout') }}" method="post">
                                             @csrf
@@ -104,6 +109,7 @@
         <!-- Navbar End -->
 
         @yield('content')
+        @include('sweetalert::alert')
 
         <!-- Footer Start -->
         <div class="container-fluid bg-dark text-white-50 footer mt-5 pt-5">
