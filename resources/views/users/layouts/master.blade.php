@@ -55,12 +55,10 @@
                     <div class="navbar-collapse collapse bg-white" id="navbarCollapse">
                         <div class="navbar-nav mx-auto">
                             <a href="{{ route('userHome') }}"
-                                class="nav-item nav-link {{ request()->routeIs('userHome') ? 'active' : '' }}">Home</a>
-                            <a href="#"
-                                class="nav-item nav-link {{ request()->routeIs('shop') ? 'active' : '' }}">Shop</a>
+                                class="nav-item nav-link {{ request()->routeIs('userHome') ? 'active' : '' }}">Shop</a>
                             <a href="#"
                                 class="nav-item nav-link {{ request()->routeIs('cart') ? 'active' : '' }}">Cart</a>
-                            <a href="#"
+                            <a href="{{ route('user.contact') }}"
                                 class="nav-item nav-link {{ request()->routeIs('contact') ? 'active' : '' }}">Contact</a>
                         </div>
                         <div class="d-flex m-3 me-0">

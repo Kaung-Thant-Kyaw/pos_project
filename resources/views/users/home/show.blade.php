@@ -20,6 +20,12 @@
                         </div>
                         <div class="col-lg-6">
                             <h4 class="fw-bold mb-3">{{ $product->name }}</h4>
+                            <p class="{{ $product->available_stock < 3 ? 'text-danger' : '' }} mb-3">
+                                {{ $product->available_stock }}
+                                @if ($product->available_stock < 3)
+                                    items only left!
+                                @endif
+                            </p>
                             <p class="mb-3">Category: {{ $product->category_name }}</p>
                             <h5 class="fw-bold mb-3">{{ $product->price }} mmk</h5>
                             <div class="d-flex mb-4">
@@ -41,7 +47,8 @@
                                         </button>
                                     </div>
                                     <input type="text" name="count"
-                                        class="form-control form-control-sm border-0 text-center" value="1">
+                                        class="form-control form-control-sm border-0 text-center" value="1"
+                                        min="1" max="{{ $product->available_stock }}">
                                     <div class="input-group-btn">
                                         <button type="button" class="btn btn-sm btn-plus rounded-circle bg-light border">
                                             <i class="fa fa-plus"></i>

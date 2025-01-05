@@ -6,6 +6,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Admins\AdminController;
 use App\Http\Controllers\Admins\PaymentController;
 use App\Http\Controllers\Admins\ProfileController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\OrderController;
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/homepage', [AdminController::class, 'home'])->name('adminHome');
@@ -40,6 +42,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         });
     });
 
+    // Contact Information
+    Route::get('contacts', [ContactController::class, 'list'])->name('contact.list');
+
     // Product
     Route::group(['prefix' => 'product'], function () {
         Route::get('list/{amt?}', [ProductController::class, 'list'])->name('products.list');
@@ -49,6 +54,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         Route::get('edit/{id}', [ProductController::class, 'edit'])->name('products.edit');
         Route::post('update/{id}', [ProductController::class, 'update'])->name('products.update');
         Route::get('delete/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+
+        // Sale Information
+        Route::get('sale-information', [ProductController::class, 'saleInfo'])->name('admin.sale.information');
     });
 
     // Payment
@@ -58,5 +66,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         Route::get('/edit/{id}', [PaymentController::class, 'edit'])->name('payment.edit');
         Route::post('/update/{id}', [PaymentController::class, 'update'])->name('payment.update');
         Route::get('/delete/{id}', [PaymentController::class, 'destroy'])->name('payment.destroy');
+    });
+
+
+    // Order
+    Route::group(['prefix' => 'order'], function () {
+        Route::get('list', [OrderController::class, 'list'])->name('admin.order.list');
+        Route::get('detail/{orderCode}', [OrderController::class, 'detail'])->name('admin.order.detail');
+        Route::get('changeStatus', [OrderController::class, 'changeStatus'])->name('admin.order.changeStatus');
+        Route::get('confirmOrder', [OrderController::class, 'confirmOrder'])->name('admin.order.confirmOrder');
+        Route::get('rejectOrder', [OrderController::class, 'rejectOrder'])->name('admin.order.rejectOrder');
     });
 });

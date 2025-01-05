@@ -24,6 +24,7 @@ class ProductController extends Controller
             'products.image',
             'products.name',
             'products.price',
+            'products.stock as available_stock',
             'products.description',
             'products.created_at',
             'categories.name as category_name'

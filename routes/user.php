@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admins\PaymentController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Users\ProductController;
 use App\Http\Controllers\Users\UserController;
 use Illuminate\Support\Facades\Route;
@@ -18,6 +19,10 @@ Route::group(['prefix' => 'user', 'middleware' => 'user'], function () {
         Route::get('changePassword', [UserController::class, 'changePasswordPage'])->name('user.profile.changePasswordPage');
         Route::post('changePassword', [UserController::class, 'changePassword'])->name('user.profile.changePassword');
     });
+
+    // Contact to admin team
+    Route::get('contact', [ContactController::class, 'contactForm'])->name('user.contact');
+    Route::post('contact', [ContactController::class, 'contactSubmit'])->name('user.contactForm.submit');
 
 
     // Product

@@ -37,7 +37,8 @@
                                 <div class="col-md-8">{{ Auth::user()->address }}</div>
                             </div>
                             <div class="mt-4">
-                                <a href="#" class="btn btn-danger btn-sm rounded-pill me-2 text-white shadow-sm">
+                                <a href="{{ route('user.profile.changePasswordPage', Auth::user()->id) }}"
+                                    class="btn btn-danger btn-sm rounded-pill me-2 text-white shadow-sm">
                                     <i class="fa-solid fa-lock"></i> Change Password
                                 </a>
                                 <a href="{{ route('user.profile.edit', Auth::user()->id) }}"

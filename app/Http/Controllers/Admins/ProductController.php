@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use RealRashid\SweetAlert\Facades\Alert;
 
 use function PHPUnit\Framework\fileExists;
@@ -146,5 +147,30 @@ class ProductController extends Controller
         $rules['image'] = $action == 'create' ? 'required|mimes:jpg,png,jpeg,webp|file' : "mimes:jpg,png,jpeg,webp|file";
 
         $request->validate($rules);
+    }
+
+    // Products' sale information
+    public function saleInfo()
+    {
+        $sales = Order::select(
+            'orders.order_code',
+            'orders.count',
+            'orders.status',
+            'products.name as product_name',
+            'products.price as product_price',
+            'products.image as product_image',
+            'products.category_id',
+            'payment_histories.user_name',
+            'payment_histories.phone',
+            'payment_histories.address',
+            'payment_histories.total_amt',
+            'payment_histories.payment_method'
+        )
+            ->leftJoin('products', 'orders.product_id', 'products.id')
+            ->leftJoin('payment_histories', 'orders.order_code', 'payment_histories.order_code')
+            ->where('orders.status', 1)
+            ->get();
+
+        return view('admins.products.saleInfo', compact('sales'));
     }
 }

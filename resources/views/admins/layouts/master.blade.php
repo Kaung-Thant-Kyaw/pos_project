@@ -76,12 +76,22 @@
                 @endif
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fa-solid fa-list"></i><span>Sale Information
-                        </span></a>
+                    <a class="nav-link" href="{{ route('admin.sale.information') }}">
+                        <i class="fa-solid fa-list"></i><span>Sale Information
+                        </span>
+                    </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fa-solid fa-cart-shopping"></i><span>Order Board
+                    <a class="nav-link" href="{{ route('contact.list') }}">
+                        <i class="fa-solid fa-message"></i><span>Contact Messages
+                        </span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('admin.order.list') }}"><i
+                            class="fa-solid fa-cart-shopping"></i><span>Order Board
                         </span></a>
                 </li>
                 @if (auth()->user()->role == 'superadmin')
@@ -193,7 +203,9 @@
                 </div>
 
                 <!-- Bootstrap core JavaScript-->
-                <script src="{{ asset('admins/vendor/jquery/jquery.min.js') }}"></script>
+                {{-- <script src="{{ asset('admins/vendor/jquery/jquery.min.js') }}"></script> --}}
+                <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+                    crossorigin="anonymous"></script>
                 <script src="{{ asset('admins/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
                 <!-- Core plugin JavaScript-->
@@ -203,12 +215,13 @@
                 <script src="{{ asset('admins/js/sb-admin-2.min.js') }}"></script>
 
                 <!-- Page level plugins -->
-                <script src="{{ asset('admins/vendor/chart.js/Chart.min.js') }}"></script>
+                {{-- <script src="{{ asset('admins/vendor/chart.js/Chart.min.js') }}"></script> --}}
 
                 <!-- Page level custom scripts -->
-                <script src="{{ asset('admins/js/demo/chart-area-demo.js') }}"></script>
-                <script src="{{ asset('admins/js/demo/chart-pie-demo.js') }}"></script>
+                {{-- <script src="{{ asset('admins/js/demo/chart-area-demo.js') }}"></script>
+                <script src="{{ asset('admins/js/demo/chart-pie-demo.js') }}"></script> --}}
 
+                @yield('script')
                 {{-- Image Preview --}}
                 <script>
                     function loadFile(event) {
