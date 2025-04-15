@@ -30,6 +30,7 @@
 
         <!-- Template Stylesheet -->
         <link href="{{ asset('users/css/style.css') }}" rel="stylesheet">
+        <link href="{{ asset('users/css/custom.css') }}" rel="stylesheet">
     </head>
 
     <body>
@@ -55,11 +56,11 @@
                     <div class="navbar-collapse collapse bg-white" id="navbarCollapse">
                         <div class="navbar-nav mx-auto">
                             <a href="{{ route('userHome') }}"
-                                class="nav-item nav-link {{ request()->routeIs('userHome') ? 'active' : '' }}">Shop</a>
-                            <a href="#"
-                                class="nav-item nav-link {{ request()->routeIs('cart') ? 'active' : '' }}">Cart</a>
+                                class="nav-item nav-link {{ request()->routeIs('userHome') ? 'active' : '' }}">Home</a>
+                            <a href="{{ route('user.product.cart') }}"
+                                class="nav-item nav-link {{ request()->routeIs('user.product.cart') ? 'active' : '' }}">Cart</a>
                             <a href="{{ route('user.contact') }}"
-                                class="nav-item nav-link {{ request()->routeIs('contact') ? 'active' : '' }}">Contact</a>
+                                class="nav-item nav-link {{ request()->routeIs('user.contact') ? 'active' : '' }}">Contact</a>
                         </div>
                         <div class="d-flex m-3 me-0">
 

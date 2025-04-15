@@ -21,6 +21,10 @@
                                     <span class="btn btn-warning btn-sm shadow-sm">Pending</span>
                                 @elseif ($order->status == 1)
                                     <span class="btn btn-success btn-sm shadow-sm">Success</span>
+                                    <span class="text-danger">
+                                        <i class="fa-solid fa-clock-rotate-left"></i>
+                                        Waiting time: 3 days!
+                                    </span>
                                 @else
                                     <span class="btn btn-danger btn-sm shadow-sm">Reject</span>
                                 @endif

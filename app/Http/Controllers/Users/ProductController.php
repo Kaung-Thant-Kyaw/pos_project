@@ -8,8 +8,11 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Models\ActionLog;
+use App\Models\Comment;
 use App\Models\Order;
 use App\Models\PaymentHistory;
+use App\Models\Rating;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -44,7 +47,25 @@ class ProductController extends Controller
             ->leftJoin('categories', 'products.category_id', 'categories.id')
             ->where('products.id', '!=', $id)
             ->where('categories.name', $product->category_name)->get();
-        return view('users.home.show', compact('product', 'relatedProducts'));
+
+        $comments = Comment::select(
+            'comments.*',
+            'users.name as user_name',
+            'users.profile as user_profile',
+        )
+            ->leftJoin('users', 'comments.user_id', 'users.id')
+            ->where('product_id', $id)->orderBy('created_at', 'desc')->get();
+        $rating = Rating::where('product_id', $id)->avg('count');
+
+        $user_rating =  Rating::where('product_id', $id)->where('user_id', Auth::user()->id)->first('count');
+        $user_rating =  $user_rating?->count ?? 0;
+
+        $this->actionLogAdd(Auth::user()->id, $id, 'seen');
+
+        $view_count = ActionLog::where('product_id', $id)->where('action', 'seen')->groupBy('user_id')->get();
+        $unique_views = count($view_count);
+
+        return view('users.home.show', compact('product', 'relatedProducts', 'comments', 'rating', 'user_rating', 'unique_views'));
     }
 
     // Add To Cart
@@ -57,6 +78,8 @@ class ProductController extends Controller
                 'qty' => $request->count
             ]
         );
+
+        $this->actionLogAdd($request->userId, $request->productId, 'addToCart');
 
         return to_route('userHome');
     }
@@ -191,5 +214,15 @@ class ProductController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
         return view('users.home.orderList', compact('orders'));
+    }
+
+    // action log process
+    private function actionLogAdd($user_id, $product_id, $action)
+    {
+        ActionLog::create([
+            'user_id' => $user_id,
+            'product_id' => $product_id,
+            'action' => $action
+        ]);
     }
 }

@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admins\PaymentController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\RatingController;
 use App\Http\Controllers\Users\ProductController;
 use App\Http\Controllers\Users\UserController;
 use Illuminate\Support\Facades\Route;
@@ -42,4 +44,11 @@ Route::group(['prefix' => 'user', 'middleware' => 'user'], function () {
     Route::get('payment', [ProductController::class, 'payment'])->name('user.payment');
     Route::post('order', [ProductController::class, 'order'])->name('user.order');
     Route::get('order/list', [ProductController::class, 'orderList'])->name('user.order.list');
+
+    // Comments
+    Route::post('commment', [CommentController::class, 'comment'])->name('user.product.comment');
+    Route::get('commment/delete/{id}', [CommentController::class, 'commentDelete'])->name('user.product.commentDelete');
+
+    // Rating
+    Route::post('rating', [RatingController::class, 'rating'])->name('user.product.rating');
 });

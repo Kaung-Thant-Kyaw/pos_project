@@ -13,7 +13,7 @@ class Rating extends Model
      */
     protected $fillable = [
         'user_id',
-        'prduct_id',
+        'product_id',
         'count'
     ];
 }

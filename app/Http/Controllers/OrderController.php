@@ -24,6 +24,9 @@ class OrderController extends Controller
             ->when(request('searchKey'), function ($query) {
                 $query->whereAny(['orders.order_code', 'users.name'], 'like', '%' . request('searchKey') . '%');
             })
+            ->when(!is_null(request('status')), function ($query) {
+                $query->where('orders.status', request('status'));
+            })
             ->orderBy('created_at', 'desc')
             ->groupBy('order_code')
             ->paginate(10);
